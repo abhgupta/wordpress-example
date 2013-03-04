@@ -15,9 +15,11 @@ then
     echo 1>&2
 fi
 
-RETRY=60
+RETRY=180
 while [ $RETRY -gt 0 ] ; do
     #reload env variables
+
+    echo `ls $OPENSHIFT_HOMEDIR/.env/ >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt`
     for env_var in  $OPENSHIFT_HOMEDIR/.env/*
     do
         . $env_var
@@ -27,7 +29,9 @@ while [ $RETRY -gt 0 ] ; do
     if [ -n "$OPENSHIFT_MYSQL_DB_HOST" ]
     then
         echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..."
-        sleep 5
+        sleep 15
+        echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..." >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+
         break
     fi
 

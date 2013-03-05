@@ -35,6 +35,7 @@ while [ $RETRY -gt 0 ] ; do
         echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..." >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
         echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+        echo $PATH >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
         break
     fi

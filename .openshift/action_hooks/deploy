@@ -41,6 +41,9 @@ while [ $RETRY -gt 0 ] ; do
 
     sleep 1
     RETRY=$(( $RETRY - 1 ))
+
+    echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+
 done
 
 if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]

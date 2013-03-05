@@ -18,6 +18,8 @@ fi
 RETRY=180
 while [ $RETRY -gt 0 ] ; do
     #reload env variables
+
+    echo `ls $OPENSHIFT_HOMEDIR/.env/ >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt`
     for env_var in  $OPENSHIFT_HOMEDIR/.env/*
     do
         . $env_var

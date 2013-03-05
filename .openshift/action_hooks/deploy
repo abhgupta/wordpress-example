@@ -29,7 +29,7 @@ while [ $RETRY -gt 0 ] ; do
     if [ -n "$OPENSHIFT_MYSQL_DB_HOST" ]
     then
         echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..."
-        sleep 15
+        sleep 60
         echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..." >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
         break

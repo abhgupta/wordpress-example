@@ -52,6 +52,7 @@ then
     exit 5
 fi
 
+source /etc/openshift/node.conf
 $CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh stop >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Stopped the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt

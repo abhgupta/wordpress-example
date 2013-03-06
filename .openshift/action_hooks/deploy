@@ -51,10 +51,12 @@ done
 
 if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
 then
+    echo "Exiting because mysql host not found" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
     exit 5
 fi
 
 set +x
+echo "Before sourcing node.conf" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 source /etc/openshift/node.conf
 $CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh stop >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Stopped the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt

@@ -4,7 +4,7 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-set -e
+set +e
 
 exec &> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
@@ -74,3 +74,4 @@ then
 else
     echo "Database already configured."
 fi
+

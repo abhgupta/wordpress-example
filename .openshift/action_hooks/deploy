@@ -17,7 +17,7 @@ then
     echo 1>&2
 fi
 
-echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+echo `ps -ef | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
 RETRY=180
 while [ $RETRY -gt 0 ] ; do
@@ -36,7 +36,7 @@ while [ $RETRY -gt 0 ] ; do
         sleep 15
         echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..." >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
-        echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+        echo `ps -ef | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
         echo $PATH >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
         break
@@ -45,7 +45,7 @@ while [ $RETRY -gt 0 ] ; do
     sleep 1
     RETRY=$(( $RETRY - 1 ))
 
-    echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+    echo `ps -ef | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
 done
 
@@ -56,14 +56,14 @@ then
 fi
 
 set -x
-echo "Before sourcing node.conf" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+echo "Before stopping app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 
-$CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh stop >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+ctl_all stop >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Stopped the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
-echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
-$CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh start >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+echo `ps -ef | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+ctl_all start >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Started the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
-echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+echo `ps -ef | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 set +x
 
 # Confirm database exists, if not create it

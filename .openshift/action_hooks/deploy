@@ -6,6 +6,8 @@
 
 set -e
 
+exec &> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+
 if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
 then
     echo 1>&2
@@ -52,6 +54,7 @@ then
     exit 5
 fi
 
+set +x
 source /etc/openshift/node.conf
 $CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh stop >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Stopped the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
@@ -59,6 +62,7 @@ echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 $CARTRIDGE_BASE_PATH/cartridges/php-5.3/info/bin/app_ctl.sh start >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo "Started the app" >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
 echo `ps -efZ | grep php` >> $OPENSHIFT_HOMEDIR/app-root/data/logfile.txt
+set -x
 
 # Confirm database exists, if not create it
 if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select * from wp_commentmeta;" "$OPENSHIFT_APP_NAME" > /dev/null 2>&1
